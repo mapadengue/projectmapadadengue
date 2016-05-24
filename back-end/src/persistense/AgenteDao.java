@@ -12,57 +12,58 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transaction;
 
+import model.Agente;
 import model.Pessoa;
 
-public class PessoaDao {
-	
+public class AgenteDao {
 	private EntityManager manager = EntityManagerFactoryHolder.factory.createEntityManager();
 	
-	public void insertPessoa(Pessoa pessoa){
+
+	public void insertAgente(Agente agente){
 		EntityTransaction transaction = manager.getTransaction();
 		
 		transaction.begin();
-		manager.persist(pessoa);
+		manager.persist(agente);
 		transaction.commit();
 	}
 	
-	public void upDatePessoa(Pessoa pessoa) {
+	public void upDateAgente(Agente agente) {
 		EntityTransaction transaction = manager.getTransaction();
 		
 		transaction.begin();
 		
-		manager.merge(pessoa);
+		manager.merge(agente);
 		
 		transaction.commit();
 	}
 	
-	public List<Pessoa> getAll(){
+	public List<Agente> getAll(){
 		EntityTransaction transaction = manager.getTransaction();
 		
 		transaction.begin();
 		
 			@SuppressWarnings("unchecked")
-			List<Pessoa> lista = manager
-				  .createQuery("select p from PESSOA")
+			List<Agente> lista = manager
+				  .createQuery("select p from AGENTE")
 				  .getResultList();
 			return lista;
 	}
 	
-	public void removePessoa(Pessoa pessoa) {
+	public void removeAgente(Agente agente) {
 		EntityTransaction transaction = manager.getTransaction();
 		
 		transaction.begin();
-		pessoa = manager.find(Pessoa.class, pessoa.getId());
-		manager.remove(pessoa);
+		agente = manager.find(Agente.class, agente.getId());
+		manager.remove(agente);
 		transaction.commit();		
 	}
-
-	public boolean containsPessoa(String pessoaNome) {
-		TypedQuery<Pessoa> query;
-		List<Pessoa> result;
+	
+	public boolean containsAgente(String agenteNome) {
+		TypedQuery<Agente> query;
+		List<Agente> result;
 		
-		query = manager.createNamedQuery("Selecione pessoa de Pessoa onde o nome = :prNome", Pessoa.class);
-		query.setParameter("prNome", pessoaNome);
+		query = manager.createNamedQuery("Selecione pessoa de Pessoa onde o nome = :prNome", Agente.class);
+		query.setParameter("prNome", agenteNome);
 		
 		result = query.getResultList();
 		
