@@ -1,62 +1,61 @@
 package persistense;
 
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
-import model.Agente;
+import model.Foco;
 
-public class AgenteDao {
-	private EntityManager manager = EntityManagerFactoryHolder.factory.createEntityManager();
+public class FocoDao {
+private EntityManager manager = EntityManagerFactoryHolder.factory.createEntityManager();
 	
-
-	public void insertAgente(Agente agente){
+	public void insertFoco(FocoDao foco){
 		EntityTransaction transaction = manager.getTransaction();
 		
 		transaction.begin();
-		manager.persist(agente);
+		manager.persist(foco);
 		transaction.commit();
 	}
 	
-	public void upDateAgente(Agente agente) {
+	public void upDateFoco(Foco foco) {
 		EntityTransaction transaction = manager.getTransaction();
 		
 		transaction.begin();
 		
-		manager.merge(agente);
+		manager.merge(foco);
 		
 		transaction.commit();
 	}
 	
-	public List<Agente> getAll(){
+	public List<Foco> getAll(){
 		EntityTransaction transaction = manager.getTransaction();
 		
 		transaction.begin();
 		
 			@SuppressWarnings("unchecked")
-			List<Agente> lista = manager
-				  .createQuery("select p from AGENTE")
+			List<Foco> lista = manager
+				  .createQuery("select f from FOCO")
 				  .getResultList();
 			return lista;
 	}
 	
-	public void removeAgente(Agente agente) {
+	public void removeFoco(Foco foco) {
 		EntityTransaction transaction = manager.getTransaction();
 		
 		transaction.begin();
-		agente = manager.find(Agente.class, agente.getId());
-		manager.remove(agente);
+		foco = manager.find(Foco.class, foco.getId());
+		manager.remove(foco);
 		transaction.commit();		
 	}
-	
-	public boolean containsAgente(String agenteNome) {
-		TypedQuery<Agente> query;
-		List<Agente> result;
+
+	public boolean containsFoco(int focoID) {
+		TypedQuery<Foco> query;
+		List<Foco> result;
 		
-		query = manager.createNamedQuery("Selecione pessoa de Pessoa onde o nome = :prNome", Agente.class);
-		query.setParameter("prNome", agenteNome);
-		
+		query = manager.createNamedQuery("Selecione foco de Foco onde o nome = :prID", Foco.class);
+		query.setParameter("prNome", focoID);
 		result = query.getResultList();
 		
 		if(result.size() != 0)
@@ -64,5 +63,5 @@ public class AgenteDao {
 		
 		return false;
 	}
-	
+
 }
