@@ -11,7 +11,7 @@ import model.Foco;
 public class FocoDao {
 private EntityManager manager = EntityManagerFactoryHolder.factory.createEntityManager();
 	
-	public void insertFoco(FocoDao foco){
+	public void insertFoco(Foco foco){
 		EntityTransaction transaction = manager.getTransaction();
 		
 		transaction.begin();

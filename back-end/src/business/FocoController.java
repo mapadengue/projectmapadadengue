@@ -14,10 +14,10 @@ public class FocoController {
 		FocoController.dao = dao;
 	}
 	
-	public static void saveFoco(FocoDao foco){
-		//if(dao.containsFoco(foco.getId()))
-			//throw new RuntimeException("Ha uma pessoa com o mesmo nome registrada!");
-		//else
+	public static void saveFoco(Foco foco){
+		if(dao.containsFoco(foco.getId()))
+			throw new RuntimeException("Ha uma pessoa com o mesmo nome registrada!");
+		else
 			dao.insertFoco(foco);
 	}
 	
